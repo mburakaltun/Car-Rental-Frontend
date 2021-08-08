@@ -2,7 +2,10 @@
     <thead>
         <th> Color Name </th>
     </thead>
-    <tr *ngFor="let color of colors">
+    <tr *ngFor="let color of colors" 
+        (click)="setCurrentColor(color)"
+        routerLink="/cars/color/{{ color.id }}"
+        [class]="getCurrentClass(color)">
         <td> {{ color.name }} </td>
     </tr>
 </table>
