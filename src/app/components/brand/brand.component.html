@@ -2,7 +2,10 @@
     <thead>
         <th> Brand Name </th>
     </thead>
-    <tr *ngFor="let brand of brands">
+    <tr *ngFor="let brand of brands"
+        (click)="setCurrentBrand(brand)"
+        routerLink="/cars/brand/{{ brand.id }}" 
+        [class]="getCurrentClass(brand)">
         <td> {{ brand.name }} </td>
     </tr>
 </table>
