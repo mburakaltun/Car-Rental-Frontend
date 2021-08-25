@@ -1,11 +1,20 @@
 <table class="table">
     <thead>
-        <th> Brand Name </th>
+        <th> Brand </th>
     </thead>
-    <tr *ngFor="let brand of brands"
-        (click)="setCurrentBrand(brand)"
-        routerLink="/cars/brand/{{ brand.id }}" 
-        [class]="getCurrentClass(brand)">
-        <td> {{ brand.name }} </td>
-    </tr>
+    <div class="row">
+        <div class="col-md-9">
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="selectedBrand">
+                <option selected value="" [ngValue]=""> Select brand... </option>
+                <option *ngFor="let brand of brands" value="brand.id" [ngValue]="brand"> {{ brand.name }} </option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <button *ngIf="selectedBrand" type="button" class="btn btn-outline-primary" (click)="carsListedSuccess(selectedBrand)"
+            routerLink="/cars/brand/{{selectedBrand.id}}"> Filter </button>
+            
+            <button *ngIf="!selectedBrand" type="button" class="btn btn-outline-primary" 
+            routerLink="/cars"> Filter </button>
+        </div>
+    </div>
 </table>

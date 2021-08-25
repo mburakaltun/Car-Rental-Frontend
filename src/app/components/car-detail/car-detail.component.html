@@ -1,0 +1,49 @@
+<div *ngIf="!dataLoaded" class="spinner-border text-secondary" role="status">
+  <span class="visually-hidden">Loading...</span>
+</div>
+<div *ngIf="carDetail" class="card mb-3">
+  <div class="row no-gutters">
+    <div id="carouselExampleIndicators" class="carousel slide col-md-6" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div [class]="getCurrentClass(carImage)"  *ngFor="let carImage of this.carImages">
+          <img style="height: 310px;" class="d-block w-100 img-thumbnail" [src]="carImage.carImagePath" alt="First slide">
+        </div>
+      </div>
+      <a class="carousel-control-prev" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true" (click)="setPrevImageActive()"></span>
+        <span class="sr-only"></span>
+      </a>
+      <a class="carousel-control-next" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true" (click)="setNextImageActive()"></span>
+        <span class="sr-only"></span>
+      </a>
+    </div>
+    
+    <div class="col-md-6">
+      <div class="card-body">
+        <h5 class="card-title"> ${{ carDetail.dailyPrice }} per day </h5>
+        <p class="card-text"> {{ carDetail.colorName }}, {{ carDetail.brandName }}, {{ carDetail.modelYear }}</p>
+        <div class="row">
+          <div class="col-md-6">
+            <span class="badge bg-secondary">Pick-up</span>
+            <input class="input-group date mt-1" type="date" id="birthday" name="birthday" [(ngModel)]="pickUpDate">
+          </div>
+          <div class="col-md-6">
+            <span class="badge bg-secondary">Drop-off</span>
+            <input class="input-group date mt-1" type="date" id="birthday" name="birthday" [(ngModel)]="dropOffDate">
+          </div>
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </div>
+        <button type="button" [class]="getRentButtonClass()" 
+          (click)="addRental()"> Rent Now </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -12,25 +12,17 @@ import { CarService } from 'src/app/services/car.service';
 export class CarComponent implements OnInit {
 
   carDetails:CarDetail[] = [];
-  
   dataLoaded = false;
-
-  _carSearch:CarSearch = {
-    colorId: 0,
-    brandId: 0
-  }
+  views:string[] = ["list","card"];
+  currentView = "list"
 
   constructor(private carService:CarService, private activatedRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       if(params["colorId"]) {
-        //this._carSearch.colorId = params["colorId"]
-        //this.getCarsBySearch(this._carSearch)
         this.getCarsByColorId(params["colorId"])
       } else if(params["brandId"]) {
-        //this._carSearch.brandId = params["brandId"]
-        //this.getCarsBySearch(this._carSearch)
         this.getCarsByBrandId(params["brandId"])
       } else {
         this.getCarDetails()
@@ -59,11 +51,16 @@ export class CarComponent implements OnInit {
     })
   }
 
-  getCarsBySearch(carSearch:CarSearch): void {
-    this.carService.getCarsBySearch(carSearch).subscribe(response => {
-      this.carDetails = response.data;
-      this.dataLoaded = true;
-    })
+  setView(view:string) {
+    this.currentView = view;
+  }
+
+  getViewClass(view:string) {
+    if(view == this.currentView) {
+      return "btn btn-primary"
+    } else {
+      return "btn btn-secondary"
+    }
   }
 
 }

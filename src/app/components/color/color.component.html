@@ -1,11 +1,20 @@
 <table class="table">
     <thead>
-        <th> Color Name </th>
+        <th> Color </th>
     </thead>
-    <tr *ngFor="let color of colors" 
-        (click)="setCurrentColor(color)"
-        routerLink="/cars/color/{{ color.id }}"
-        [class]="getCurrentClass(color)">
-        <td> {{ color.name }} </td>
-    </tr>
+    <div class="row">
+        <div class="col-md-9">
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="selectedColor">
+                <option selected value="" [ngValue]=""> Select color... </option>
+                <option *ngFor="let color of colors" value="color.id" [ngValue]="color"> {{ color.name }} </option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <button *ngIf="selectedColor" type="button" class="btn btn-outline-primary" (click)="carsListedSuccess(selectedColor)"
+            routerLink="/cars/color/{{selectedColor.id}}"> Filter </button>
+            
+            <button *ngIf="!selectedColor" type="button" class="btn btn-outline-primary" 
+            routerLink="/cars"> Filter </button>
+        </div>
+    </div>
 </table>
