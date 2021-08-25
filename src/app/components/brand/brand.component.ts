@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Brand } from 'src/app/models/brand';
 import { BrandService } from 'src/app/services/brand.service';
 
@@ -10,9 +11,10 @@ import { BrandService } from 'src/app/services/brand.service';
 export class BrandComponent implements OnInit {
 
   brands:Brand[] = [];
-  currentBrand:Brand
+  selectedBrandId:number
+  selectedBrand:Brand
 
-  constructor(private brandService:BrandService) { }
+  constructor(private brandService:BrandService, private toastrService:ToastrService) { }
 
   ngOnInit(): void {
     this.getBrands();
@@ -24,16 +26,7 @@ export class BrandComponent implements OnInit {
     })
   }
 
-  setCurrentBrand(brand:Brand) {
-    this.currentBrand = brand
+  carsListedSuccess(brand:Brand) {
+    this.toastrService.success(this.selectedBrand.name, "Cars were listed");
   }
-
-  getCurrentClass(brand:Brand) {
-    if(brand == this.currentBrand) {
-      return "list-group-item active"
-    } else {
-      return "list-group-item"
-    }
-  }
-
 }
